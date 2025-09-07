@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="        .controls button:disabled:hover {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        .page-title {
+            text-align: center !important;
+            margin: 20px auto;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .page-title h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .dashboard {>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Problems Survey Analysis</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            overflow-y: auto;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1a73e8 0%, #4285f4 100%);
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .controls {
+            background-color: white;
+            padding: 10px 20px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .controls button {
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .controls button:hover {
+            background-color: #1557b0;
+        }
+        
+        .controls button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .dashboard {
+            height: auto;
+            min-height: calc(100vh - 120px);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            padding: 15px 2% 15px 2%;
+            background-color: #f5f5f5;
+        }
+        
+        .chart-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            min-height: 350px;
+        }
+        
+        .chart-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+            padding-bottom: 8px;
+        }
+        
+        .chart-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .placeholder {
+            color: #666;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        @media print {
+            .header, .controls {
+                display: none;
+            }
+            
+            .dashboard {
+                height: 100vh;
+                margin: 0;
+                padding: 5px;
+                gap: 5px;
+            }
+            
+            .chart-container {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            .chart-title {
+                font-size: 14px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+                height: auto;
+                overflow-y: auto;
+            }
+            
+            body {
+                overflow: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏘️ Community Problems Survey Analysis</h1>
+        <p>Analysis of Local Community Issues: Stray Dogs & Construction Noise</p>
+    </div>
+    
+    <div class="controls">
+        <button onclick="loadCommunityData()">Load Survey Data</button>
+        <button onclick="refreshCharts()">Refresh Charts</button>
+        <button onclick="printReport()" disabled>Print Report</button>
+        <button onclick="exportData()" disabled>Export Data</button>
+    </div>
+    
+    <div class="page-title" style="text-align: center; padding-top: 10px">
+        <h2>House of Hiranandani (OMR), Chennai Problems Survey Analysis</h2>
+    </div>
+    
+    <div class="dashboard">
+        <!-- Row 1 -->
+        <div class="chart-container">
+            <div class="chart-title">Stray Dogs Presence</div>
+            <div class="chart-content" id="chart1">
+                <div class="placeholder">📊 Click "Load Survey Data" to view charts</div>
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <div class="chart-title">Safety Around Dogs</div>
+            <div class="chart-content" id="chart2">
+                <div class="placeholder">📊 Click "Load Survey Data" to view charts</div>
+            </div>
+        </div>
+        
+        <!-- Row 2 -->
+        <div class="chart-container">
+            <div class="chart-title">Dog Incidents</div>
+            <div class="chart-content" id="chart3">
+                <div class="placeholder">📊 Click "Load Survey Data" to view charts</div>
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <div class="chart-title">Dogs Cause Problems</div>
+            <div class="chart-content" id="chart4">
+                <div class="placeholder">📊 Click "Load Survey Data" to view charts</div>
+            </div>
+        </div>
+        
+        <!-- Row 3 -->
+        <div class="chart-container">
+            <div class="chart-title">Construction Noise</div>
+            <div class="chart-content" id="chart5">
+                <div class="placeholder">📊 Click "Load Survey Data" to view charts</div>
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <div class="chart-title">Noise Disturbs Life</div>
+            <div class="chart-content" id="chart6">
+                <div class="placeholder">📊 Click "Load Survey Data" to view charts</div>
+            </div>
+        </div>
+        
+        <!-- Row 4 -->
+        <div class="chart-container">
+            <div class="chart-title">Biggest Problem</div>
+            <div class="chart-content" id="chart7">
+                <div class="placeholder">📊 Click "Load Survey Data" to view charts</div>
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <div class="chart-title">Community Safety</div>
+            <div class="chart-content" id="chart8">
+                <div class="placeholder">📊 Click "Load Survey Data" to view charts</div>
+            </div>
+        </div>
+        
+        <!-- Row 5 -->
+        <div class="chart-container">
+            <div class="chart-title">Authority Action</div>
+            <div class="chart-content" id="chart9">
+                <div class="placeholder">📊 Click "Load Survey Data" to view charts</div>
+            </div>
+        </div>
+        
+        <!-- Empty space for symmetry in last row -->
+        <div class="chart-container" style="visibility: hidden;">
+            <div class="chart-title"></div>
+            <div class="chart-content"></div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // Load Google Charts
+        google.charts.load('current', {'packages':['corechart', 'bar']});
+        google.charts.setOnLoadCallback(initializeCharts);
+
+        // Community Survey Data from CSV analysis (Columns C, D, E, F, H, J, M, N, P)
+        const communityData = {
+            columnC_strayDogsPresence: [
+                ['Response', 'Count'],
+                ['Yes', 11]
+            ],
+            columnD_safetyAroundDogs: [
+                ['Response', 'Count'],
+                ['No', 5],
+                ['Sometimes', 5],
+                ['Yes', 1]
+            ],
+            columnE_dogIncidents: [
+                ['Response', 'Count'],
+                ['No', 7],
+                ['Yes', 4]
+            ],
+            columnF_dogsCauseProblems: [
+                ['Response', 'Count'],
+                ['Yes', 7],
+                ['Not sure', 4]
+            ],
+            columnH_constructionNoise: [
+                ['Response', 'Count'],
+                ['Yes', 6],
+                ['Sometimes', 5]
+            ],
+            columnJ_noiseDisturbsLife: [
+                ['Response', 'Count'],
+                ['Yes', 7],
+                ['Sometimes', 3],
+                ['No', 1]
+            ],
+            columnM_biggestProblem: [
+                ['Problem', 'Count'],
+                ['Both equally', 5],
+                ['Stray dogs', 4],
+                ['Construction noise', 2]
+            ],
+            columnN_communitySafety: [
+                ['Response', 'Count'],
+                ['Yes', 9],
+                ['No', 2]
+            ],
+            columnP_authorityAction: [
+                ['Response', 'Count'],
+                ['Not sure', 6],
+                ['Yes', 3],
+                ['No', 2]
+            ]
+        };
+
+        function initializeCharts() {
+            console.log('Google Charts loaded successfully');
+        }
+
+        function loadCommunityData() {
+            drawChart1(); // Column C: Stray Dogs Presence
+            drawChart2(); // Column D: Safety Around Dogs
+            drawChart3(); // Column E: Dog Incidents
+            drawChart4(); // Column F: Dogs Cause Problems
+            drawChart5(); // Column H: Construction Noise
+            drawChart6(); // Column J: Noise Disturbs Life
+            drawChart7(); // Column M: Biggest Problem
+            drawChart8(); // Column N: Community Safety
+            drawChart9(); // Column P: Authority Action
+            
+            // Enable buttons
+            document.querySelector('button[onclick="printReport()"]').disabled = false;
+            document.querySelector('button[onclick="exportData()"]').disabled = false;
+        }
+
+        function drawChart1() {
+            const data = google.visualization.arrayToDataTable(communityData.columnC_strayDogsPresence);
+            const options = {
+                pieHole: 0.4,
+                chartArea: { width: '85%', height: '85%', left: 30, top: 20 },
+                legend: { position: 'bottom', textStyle: { fontSize: 12 } },
+                pieSliceText: 'percentage',
+                pieSliceTextStyle: { fontSize: 12, bold: true },
+                colors: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7']
+            };
+            const chart = new google.visualization.PieChart(document.getElementById('chart1'));
+            chart.draw(data, options);
+        }
+
+        function drawChart2() {
+            const data = google.visualization.arrayToDataTable(communityData.columnD_safetyAroundDogs);
+            const options = {
+                pieHole: 0.4,
+                chartArea: { width: '85%', height: '85%', left: 30, top: 20 },
+                legend: { position: 'bottom', textStyle: { fontSize: 12 } },
+                pieSliceText: 'percentage',
+                pieSliceTextStyle: { fontSize: 12, bold: true },
+                colors: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7']
+            };
+            const chart = new google.visualization.PieChart(document.getElementById('chart2'));
+            chart.draw(data, options);
+        }
+
+        function drawChart3() {
+            const data = google.visualization.arrayToDataTable(communityData.columnE_dogIncidents);
+            const options = {
+                pieHole: 0.4,
+                chartArea: { width: '85%', height: '85%', left: 30, top: 20 },
+                legend: { position: 'bottom', textStyle: { fontSize: 12 } },
+                pieSliceText: 'percentage',
+                pieSliceTextStyle: { fontSize: 12, bold: true },
+                colors: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7']
+            };
+            const chart = new google.visualization.PieChart(document.getElementById('chart3'));
+            chart.draw(data, options);
+        }
+
+        function drawChart4() {
+            const data = google.visualization.arrayToDataTable(communityData.columnF_dogsCauseProblems);
+            const options = {
+                pieHole: 0.4,
+                chartArea: { width: '85%', height: '85%', left: 30, top: 20 },
+                legend: { position: 'bottom', textStyle: { fontSize: 12 } },
+                pieSliceText: 'percentage',
+                pieSliceTextStyle: { fontSize: 12, bold: true },
+                colors: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7']
+            };
+            const chart = new google.visualization.PieChart(document.getElementById('chart4'));
+            chart.draw(data, options);
+        }
+
+        function drawChart5() {
+            const data = google.visualization.arrayToDataTable(communityData.columnH_constructionNoise);
+            const options = {
+                pieHole: 0.4,
+                chartArea: { width: '85%', height: '85%', left: 30, top: 20 },
+                legend: { position: 'bottom', textStyle: { fontSize: 12 } },
+                pieSliceText: 'percentage',
+                pieSliceTextStyle: { fontSize: 12, bold: true },
+                colors: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7']
+            };
+            const chart = new google.visualization.PieChart(document.getElementById('chart5'));
+            chart.draw(data, options);
+        }
+
+        function drawChart6() {
+            const data = google.visualization.arrayToDataTable(communityData.columnJ_noiseDisturbsLife);
+            const options = {
+                pieHole: 0.4,
+                chartArea: { width: '85%', height: '85%', left: 30, top: 20 },
+                legend: { position: 'bottom', textStyle: { fontSize: 12 } },
+                pieSliceText: 'percentage',
+                pieSliceTextStyle: { fontSize: 12, bold: true },
+                colors: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7']
+            };
+            const chart = new google.visualization.PieChart(document.getElementById('chart6'));
+            chart.draw(data, options);
+        }
+
+        function drawChart7() {
+            const data = google.visualization.arrayToDataTable(communityData.columnM_biggestProblem);
+            const options = {
+                pieHole: 0.4,
+                chartArea: { width: '85%', height: '85%', left: 30, top: 20 },
+                legend: { position: 'bottom', textStyle: { fontSize: 12 } },
+                pieSliceText: 'percentage',
+                pieSliceTextStyle: { fontSize: 12, bold: true },
+                colors: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7']
+            };
+            const chart = new google.visualization.PieChart(document.getElementById('chart7'));
+            chart.draw(data, options);
+        }
+
+        function drawChart8() {
+            const data = google.visualization.arrayToDataTable(communityData.columnN_communitySafety);
+            const options = {
+                pieHole: 0.4,
+                chartArea: { width: '85%', height: '85%', left: 30, top: 20 },
+                legend: { position: 'bottom', textStyle: { fontSize: 12 } },
+                pieSliceText: 'percentage',
+                pieSliceTextStyle: { fontSize: 12, bold: true },
+                colors: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7']
+            };
+            const chart = new google.visualization.PieChart(document.getElementById('chart8'));
+            chart.draw(data, options);
+        }
+
+        function drawChart9() {
+            const data = google.visualization.arrayToDataTable(communityData.columnP_authorityAction);
+            const options = {
+                pieHole: 0.4,
+                chartArea: { width: '85%', height: '85%', left: 30, top: 20 },
+                legend: { position: 'bottom', textStyle: { fontSize: 12 } },
+                pieSliceText: 'percentage',
+                pieSliceTextStyle: { fontSize: 12, bold: true },
+                colors: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7']
+            };
+            const chart = new google.visualization.PieChart(document.getElementById('chart9'));
+            chart.draw(data, options);
+        }
+
+        function refreshCharts() {
+            if (document.querySelector('button[onclick="printReport()"]').disabled) {
+                alert('Please load survey data first');
+                return;
+            }
+            loadCommunityData();
+            console.log('Community survey charts refreshed');
+        }
+
+        function printReport() {
+            if (document.querySelector('button[onclick="printReport()"]').disabled) {
+                alert('Please load survey data first');
+                return;
+            }
+            
+            const originalTitle = document.title;
+            document.title = 'Community Problems Survey Analysis Report';
+            window.print();
+            document.title = originalTitle;
+        }
+
+        function exportData() {
+            const csvContent = "data:text/csv;charset=utf-8," + 
+                "Question,Response,Count\n" +
+                "Stray Dogs Presence,Yes,11\n" +
+                "Safety Around Dogs,No,5\n" +
+                "Safety Around Dogs,Sometimes,5\n" +
+                "Safety Around Dogs,Yes,1\n" +
+                "Dog Incidents,No,7\n" +
+                "Dog Incidents,Yes,4\n" +
+                "Construction Noise,Yes,6\n" +
+                "Construction Noise,Sometimes,5\n" +
+                "Noise Impact,Yes,7\n" +
+                "Noise Impact,Sometimes,3\n" +
+                "Noise Impact,No,1\n" +
+                "Biggest Problem,Stray dogs,4\n" +
+                "Biggest Problem,Both equally,5\n" +
+                "Biggest Problem,Construction noise,2\n" +
+                "Safety Impact,Yes,9\n" +
+                "Safety Impact,No,2\n" +
+                "Authority Action,Not sure,6\n" +
+                "Authority Action,Yes,3\n" +
+                "Authority Action,No,2";
+            
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "community_survey_analysis.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (!document.querySelector('button[onclick="printReport()"]').disabled) {
+                setTimeout(loadCommunityData, 100);
+            }
+        });
+    </script>
+</body>
+</html>
